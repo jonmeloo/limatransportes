@@ -37,8 +37,87 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="assets/css/custom.css">
+  <!-- Estilos Customizados -->
+  <style>
+    /* Estilo para revelar ao rolar (Scroll Reveal) */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-on-scroll.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Efeito de cascata (Staggering) */
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    /* Linha interativa nos links do menu */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      background-color: #2563eb;
+      transition: all 0.3s ease-in-out;
+      transform: translateX(-50%);
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Efeito de brilho nos botões */
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transition: left 0.7s ease;
+    }
+    .btn-shine:hover::before {
+      left: 100%;
+    }
+
+    /* Estilos do Carrossel Hero */
+    .hero-slide {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .hero-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .hero-slide.active .hero-animate-content > * {
+      animation: slideUpFade 0.7s ease-out forwards;
+    }
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 
   <!-- Schema.org (JSON-LD) para LogisticsService -->
   <script type="application/ld+json">
@@ -86,31 +165,31 @@
   }
   </script>
 </head>
-<body class="bg-white text-slate-800 font-sans antialiased selection:bg-brand-blue selection:text-white">
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden">
 
   <!-- Link de Acessibilidade p/ Leitores de Tela -->
   <a href="#cotacao-form" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-brand-blue focus:text-white">Pular para o formulário de cotação</a>
 
   <!-- Header / Navbar Fixa -->
-  <header class="sticky top-0 z-40 bg-white/98 backdrop-blur-md border-b border-slate-200 transition-all duration-200" id="main-header">
+  <header class="sticky top-0 z-50 bg-white border-b border-slate-200 transition-shadow duration-300" id="main-header">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- Logo Oficial -->
-      <a href="#home" class="flex items-center group focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-lg p-1" aria-label="Página Inicial Lima Transportes">
+      <a href="#home" class="flex items-center group focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-lg p-1 transition-transform transform hover:scale-105" aria-label="Página Inicial Lima Transportes">
         <img src="assets/img/logo.png" alt="Lima Transportes" class="h-12 sm:h-16 w-auto object-contain">
       </a>
 
       <!-- Menu Desktop -->
       <nav class="hidden lg:flex items-center space-x-8 font-semibold text-slate-700" aria-label="Navegação Principal">
-        <a href="#sobre" class="hover:text-brand-blue transition-colors focus:outline-none focus:text-brand-blue">Quem Somos</a>
-        <a href="#servicos" class="hover:text-brand-blue transition-colors focus:outline-none focus:text-brand-blue">Soluções</a>
-        <a href="#cobertura" class="hover:text-brand-blue transition-colors focus:outline-none focus:text-brand-blue">Cobertura</a>
-        <a href="#contato" class="hover:text-brand-blue transition-colors focus:outline-none focus:text-brand-blue">Contato</a>
+        <a href="#sobre" class="nav-link hover:text-brand-blue transition-colors focus:outline-none">Quem Somos</a>
+        <a href="#servicos" class="nav-link hover:text-brand-blue transition-colors focus:outline-none">Soluções</a>
+        <a href="#cobertura" class="nav-link hover:text-brand-blue transition-colors focus:outline-none">Cobertura</a>
+        <a href="#contato" class="nav-link hover:text-brand-blue transition-colors focus:outline-none">Contato</a>
       </nav>
 
       <!-- Botão CTA no Header -->
       <div class="hidden sm:block">
-        <a href="#cotacao-form" class="inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-bold text-base px-6 py-3.5 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
+        <a href="#cotacao-form" class="btn-shine inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-bold text-base px-6 py-3.5 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
           Solicitar Cotação
         </a>
       </div>
@@ -133,96 +212,182 @@
 
   <main id="main-content">
 
-    <!-- Hero Section -->
-    <section class="relative bg-brand-dark text-white py-24 lg:py-36 overflow-hidden" id="home">
-      <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=80" alt="Caminhão da Lima Transportes em rodovia" class="w-full h-full object-cover object-center opacity-25" width="1920" height="1080">
-        <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl space-y-8">
-          <div class="inline-flex items-center gap-2 bg-brand-blue/20 text-blue-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-full border border-blue-400/30">
-            <i class="fa-solid fa-shield-halved text-brand-blue" aria-hidden="true"></i> Transporte Rodoviário de Alta Performance
-          </div>
-
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none text-white">
-            Agilidade, Segurança e Eficiência para Levar Sua Carga Mais Longe.
-          </h1>
-
-          <p class="text-slate-300 text-lg sm:text-xl leading-relaxed font-normal max-w-2xl text-justify">
-            Conectamos sua empresa aos principais polos industriais e comerciais com logística inteligente, frota monitorada e rastreabilidade total de ponta a ponta.
-          </p>
-
-          <div class="flex flex-col sm:flex-row gap-4 pt-2">
-            <a href="#cotacao-form" class="inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-black text-lg px-8 py-4 rounded-xl shadow-xl transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
-              Cotar Minha Carga <i class="fa-solid fa-arrow-right ml-3" aria-hidden="true"></i>
-            </a>
-            <a href="#servicos" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-8 py-4 rounded-xl border border-white/20 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white">
-              Nossas Soluções
-            </a>
+    <!-- Hero Section Carrossel / Slider Dinâmico -->
+    <section class="relative bg-brand-dark text-white py-24 lg:py-36 overflow-hidden min-h-[580px] lg:min-h-[640px] flex items-center" id="home">
+      
+      <!-- Slide 1 -->
+      <div class="hero-slide active absolute inset-0 z-10 flex items-center">
+        <div class="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=80" alt="Caminhão Lima Transportes em rodovia" class="w-full h-full object-cover object-center opacity-25">
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div class="max-w-3xl space-y-8 hero-animate-content">
+            <div class="inline-flex items-center gap-2 bg-brand-blue/20 text-blue-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-full border border-blue-400/30">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-blue"></span>
+              </span>
+              <i class="fa-solid fa-shield-halved text-brand-blue" aria-hidden="true"></i> Transporte Rodoviário de Alta Performance
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none text-white">
+              Agilidade, Segurança e Eficiência para Levar Sua Carga Mais Longe.
+            </h1>
+            <p class="text-slate-300 text-lg sm:text-xl leading-relaxed font-normal max-w-2xl text-justify">
+              Conectamos sua empresa aos principais polos industriais e comerciais com logística inteligente, frota monitorada e rastreabilidade total de ponta a ponta.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="#cotacao-form" class="btn-shine group inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-black text-lg px-8 py-4 rounded-xl shadow-xl hover:shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
+                Cotar Minha Carga 
+                <i class="fa-solid fa-arrow-right ml-3 transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true"></i>
+              </a>
+              <a href="#servicos" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-8 py-4 rounded-xl border border-white/20 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                Nossas Soluções
+              </a>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Slide 2 -->
+      <div class="hero-slide absolute inset-0 z-10 flex items-center">
+        <div class="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80" alt="Galpão e Logística para E-commerce" class="w-full h-full object-cover object-center opacity-25">
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div class="max-w-3xl space-y-8 hero-animate-content">
+            <div class="inline-flex items-center gap-2 bg-brand-blue/20 text-blue-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-full border border-blue-400/30">
+              <i class="fa-solid fa-boxes-packing text-brand-blue" aria-hidden="true"></i> Especialistas em E-Commerce e Last Mile
+            </div>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none text-white">
+              Sua Operação com Prazos Rigorosos e Zero Complicação.
+            </h2>
+            <p class="text-slate-300 text-lg sm:text-xl leading-relaxed font-normal max-w-2xl text-justify">
+              Coletas diárias programadas e distribuição estratégica para e-commerces e marketplaces parceiros das maiores marcas do país.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="#cotacao-form" class="btn-shine group inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-black text-lg px-8 py-4 rounded-xl shadow-xl hover:shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
+                Solicitar Cotação
+                <i class="fa-solid fa-arrow-right ml-3 transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true"></i>
+              </a>
+              <a href="#cobertura" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-8 py-4 rounded-xl border border-white/20 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                Ver Cobertura
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="hero-slide absolute inset-0 z-10 flex items-center">
+        <div class="absolute inset-0 z-0">
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1920&q=80" alt="Frota Monitorada de Caminhões" class="w-full h-full object-cover object-center opacity-25">
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-transparent"></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div class="max-w-3xl space-y-8 hero-animate-content">
+            <div class="inline-flex items-center gap-2 bg-brand-blue/20 text-blue-300 font-extrabold text-xs sm:text-sm uppercase tracking-widest px-4 py-2 rounded-full border border-blue-400/30">
+              <i class="fa-solid fa-location-dot text-brand-blue" aria-hidden="true"></i> Presença Regional Consolidada
+            </div>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none text-white">
+              Mais de 41 Cidades Atendidas com Rotas Diárias.
+            </h2>
+            <p class="text-slate-300 text-lg sm:text-xl leading-relaxed font-normal max-w-2xl text-justify">
+              Infraestrutura completa de transbordo e triagem com rotas otimizadas e partidas diárias garantindo a máxima segurança da sua carga.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <a href="#cotacao-form" class="btn-shine group inline-flex items-center justify-center bg-brand-blue hover:bg-brand-hover text-white font-black text-lg px-8 py-4 rounded-xl shadow-xl hover:shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue">
+                Falar Comercial
+                <i class="fa-solid fa-arrow-right ml-3 transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true"></i>
+              </a>
+              <a href="#sobre" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-lg px-8 py-4 rounded-xl border border-white/20 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white">
+                Quem Somos
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Controle do Carrossel (Anterior / Seguinte) -->
+      <button type="button" id="hero-prev-btn" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-brand-blue text-white rounded-full flex items-center justify-center border border-white/20 backdrop-blur-md transition-all focus:outline-none" aria-label="Slide Anterior">
+        <i class="fa-solid fa-chevron-left text-lg" aria-hidden="true"></i>
+      </button>
+      <button type="button" id="hero-next-btn" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 hover:bg-brand-blue text-white rounded-full flex items-center justify-center border border-white/20 backdrop-blur-md transition-all focus:outline-none" aria-label="Próximo Slide">
+        <i class="fa-solid fa-chevron-right text-lg" aria-hidden="true"></i>
+      </button>
+
+      <!-- Indicadores de Pontos (Dots) -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-3" id="hero-dots">
+        <button type="button" class="w-3 h-3 rounded-full bg-brand-blue transition-all" aria-label="Ir para Slide 1"></button>
+        <button type="button" class="w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all" aria-label="Ir para Slide 2"></button>
+        <button type="button" class="w-3 h-3 rounded-full bg-white/40 hover:bg-white transition-all" aria-label="Ir para Slide 3"></button>
+      </div>
+
     </section>
 
-    <!-- Prova Social e Métricas Operacionais -->
+    <!-- Prova Social e Métricas Operacionais com Hover Responsivo -->
     <section class="py-16 bg-brand-surface border-b border-slate-200" id="parceiros">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
         <!-- Marcas Atendidas -->
-        <div class="text-center space-y-8">
+        <div class="text-center space-y-8 reveal-on-scroll">
           <h2 class="text-xs font-extrabold uppercase tracking-widest text-slate-500">Parceiro Logístico das Maiores do E-Commerce</h2>
           
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1.5">
               <img src="assets/img/amazom.png" alt="Amazon Logistics" class="h-16 sm:h-20 max-w-[180px] w-auto object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
             </div>
             
-            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1.5">
               <img src="assets/img/shopee.png" alt="Shopee Express" class="h-16 sm:h-20 max-w-[180px] w-auto object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
             </div>
             
-            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1.5">
               <img src="assets/img/mercado livre.png" alt="Mercado Envios" class="h-16 sm:h-20 max-w-[180px] w-auto object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
             </div>
             
-            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1">
+            <div class="p-4 flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1.5">
               <img src="assets/img/Shein.png" alt="Shein Delivery" class="h-16 sm:h-20 max-w-[180px] w-auto object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
             </div>
           </div>
         </div>
 
-        <!-- Métricas em Destaque -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 shadow-sm">
+        <!-- Métricas com Efeito de Salto e Re-contagem no Hover -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-12 shadow-sm reveal-on-scroll">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-x-0 lg:divide-x divide-slate-200">
-            <div class="space-y-2 p-2">
-              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight">5+</p>
+            
+            <div data-counter-container class="space-y-2 p-4 rounded-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:bg-slate-50 cursor-pointer group">
+              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight transition-colors group-hover:text-brand-blue" data-counter data-target="5" data-suffix="+">5+</p>
               <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Anos de Experiência</p>
             </div>
-            <div class="space-y-2 p-2">
-              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight">10 mil+</p>
+
+            <div data-counter-container class="space-y-2 p-4 rounded-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:bg-slate-50 cursor-pointer group">
+              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight transition-colors group-hover:text-brand-blue" data-counter data-target="10" data-suffix=" mil+">10 mil+</p>
               <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Entregas Realizadas</p>
             </div>
-            <div class="space-y-2 p-2">
-              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight">500+</p>
+
+            <div data-counter-container class="space-y-2 p-4 rounded-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:bg-slate-50 cursor-pointer group">
+              <p class="text-4xl sm:text-5xl font-black text-brand-dark tracking-tight transition-colors group-hover:text-brand-blue" data-counter data-target="500" data-suffix="+">500+</p>
               <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Clientes Atendidos</p>
             </div>
-            <div class="space-y-2 p-2">
-              <p class="text-4xl sm:text-5xl font-black text-brand-blue tracking-tight">98%</p>
+
+            <div data-counter-container class="space-y-2 p-4 rounded-xl transition-all duration-300 transform hover:-translate-y-2 hover:shadow-lg hover:bg-slate-50 cursor-pointer group">
+              <p class="text-4xl sm:text-5xl font-black text-brand-blue tracking-tight transition-colors group-hover:text-brand-hover" data-counter data-target="98" data-suffix="%">98%</p>
               <p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Entregas no Prazo</p>
             </div>
+
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Quem Somos -->
+    <!-- Quem Somos com Animação Scroll -->
     <section class="py-20 bg-white border-b border-slate-200" id="sobre">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
+          <div class="space-y-6 reveal-on-scroll">
             <span class="text-brand-blue font-bold text-sm uppercase tracking-wider">Institucional</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight">
               Tradição e Inovação Conectadas à Sua Cadeia de Suprimentos.
@@ -248,8 +413,8 @@
             </div>
           </div>
 
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200">
-            <img src="assets/img/sobre.png" alt="Fachada e Frota Lima Transportes" class="w-full h-[400px] object-cover" width="1000" height="400">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 reveal-on-scroll stagger-2">
+            <img src="assets/img/sobre.png" alt="Fachada e Frota Lima Transportes" class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700 ease-out" width="1000" height="400">
             <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent p-6 text-white">
               <p class="font-bold text-lg">Hub Operacional & Centro de Triagem</p>
               <p class="text-xs text-slate-300 text-justify">Infraestrutura preparada para transbordo rápido.</p>
@@ -259,10 +424,10 @@
       </div>
     </section>
 
-    <!-- Nossos Serviços (3 Cards) -->
+    <!-- Nossos Serviços (3 Cards em Cascata) -->
     <section class="py-20 bg-brand-surface" id="servicos">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3 reveal-on-scroll">
           <span class="text-brand-blue font-bold text-sm uppercase tracking-wider">O Que Fazemos</span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">Soluções Logísticas Sob Medida</h2>
           <p class="text-slate-600 text-base text-justify sm:text-center">Modelos de transporte otimizados para atender a necessidade específica do seu negócio.</p>
@@ -271,9 +436,9 @@
         <div class="grid md:grid-cols-3 gap-8">
           
           <!-- Card 1 -->
-          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-brand-blue hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between reveal-on-scroll stagger-1 group">
             <div class="space-y-6">
-              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold">
+              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
                 <i class="fa-solid fa-boxes-stacked" aria-hidden="true"></i>
               </div>
               <h3 class="text-2xl font-bold text-brand-dark">Carga Fracionada</h3>
@@ -283,15 +448,15 @@
             </div>
             <div class="pt-8">
               <a href="#cotacao-form" class="inline-flex items-center text-brand-blue font-bold text-sm hover:text-brand-hover transition-colors">
-                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs" aria-hidden="true"></i>
+                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
               </a>
             </div>
           </div>
 
           <!-- Card 2 -->
-          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-brand-blue hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between reveal-on-scroll stagger-2 group">
             <div class="space-y-6">
-              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold">
+              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
                 <i class="fa-solid fa-truck-front" aria-hidden="true"></i>
               </div>
               <h3 class="text-2xl font-bold text-brand-dark">Carga Fechada (LTL)</h3>
@@ -301,15 +466,15 @@
             </div>
             <div class="pt-8">
               <a href="#cotacao-form" class="inline-flex items-center text-brand-blue font-bold text-sm hover:text-brand-hover transition-colors">
-                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs" aria-hidden="true"></i>
+                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
               </a>
             </div>
           </div>
 
           <!-- Card 3 -->
-          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+          <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-brand-blue hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between reveal-on-scroll stagger-3 group">
             <div class="space-y-6">
-              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold">
+              <div class="w-14 h-14 bg-blue-50 text-brand-blue rounded-xl flex items-center justify-center text-2xl font-bold group-hover:bg-brand-blue group-hover:text-white transition-colors duration-300">
                 <i class="fa-solid fa-store" aria-hidden="true"></i>
               </div>
               <h3 class="text-2xl font-bold text-brand-dark">Logística para E-Commerce</h3>
@@ -319,7 +484,7 @@
             </div>
             <div class="pt-8">
               <a href="#cotacao-form" class="inline-flex items-center text-brand-blue font-bold text-sm hover:text-brand-hover transition-colors">
-                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs" aria-hidden="true"></i>
+                Solicitar Cotação <i class="fa-solid fa-chevron-right ml-2 text-xs transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"></i>
               </a>
             </div>
           </div>
@@ -331,7 +496,7 @@
     <!-- Cobertura Regional -->
     <section class="py-20 bg-brand-dark text-white" id="cobertura">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-brand-navy border border-slate-700/60 rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl">
+        <div class="bg-brand-navy border border-slate-700/60 rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl reveal-on-scroll">
           <div class="space-y-4 max-w-2xl">
             <span class="bg-brand-blue/20 text-blue-300 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-400/30">Presença Regional</span>
             <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">Ampla Cobertura com Rotas Diárias</h2>
@@ -340,72 +505,72 @@
             </p>
           </div>
 
-          <div class="bg-white/5 border border-white/10 rounded-2xl p-8 text-center min-w-[260px] shrink-0">
-            <p class="text-6xl font-black text-brand-blue">41+</p>
+          <div data-counter-container class="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-8 text-center min-w-[260px] shrink-0 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:border-brand-blue cursor-pointer group">
+            <p class="text-6xl font-black text-brand-blue transition-colors group-hover:text-blue-400" data-counter data-target="41" data-suffix="+">41+</p>
             <p class="text-sm font-semibold text-slate-300 mt-2">Cidades Atendidas Direta e Diariamente</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Área de Conversão (Formulário e Contatos Com Altura Perfeitamente Alinhada) -->
+    <!-- Área de Conversão -->
     <section class="py-20 bg-white" id="cotacao-form">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3 reveal-on-scroll">
           <span class="text-brand-blue font-bold text-sm uppercase tracking-wider">Solicite uma Proposta</span>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark">Fale com Nosso Time Comercial</h2>
           <p class="text-slate-600 text-base text-justify sm:text-center">Preencha os dados da sua carga e receba uma cotação personalizada em poucos minutos.</p>
         </div>
 
-        <!-- Grid Pai com items-stretch para igualar as alturas -->
+        <!-- Grid Pai -->
         <div class="grid lg:grid-cols-12 gap-12 items-stretch" id="contato">
           
-          <!-- Formulário Estruturado (Ocupa 100% da Altura) -->
-          <div class="lg:col-span-7 bg-brand-surface p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg h-full flex flex-col justify-between">
+          <!-- Formulário Estruturado -->
+          <div class="lg:col-span-7 bg-brand-surface p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg h-full flex flex-col justify-between reveal-on-scroll">
             <form id="lead-form" class="space-y-6 flex-1 flex flex-col justify-between">
               
               <div class="space-y-6">
                 <div class="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label for="nome" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Nome Completo *</label>
-                    <input type="text" id="nome" name="nome" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Seu nome ou empresa">
+                    <input type="text" id="nome" name="nome" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Seu nome ou empresa">
                   </div>
                   <div>
                     <label for="email" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">E-mail Corporativo *</label>
-                    <input type="email" id="email" name="email" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="nome@empresa.com.br">
+                    <input type="email" id="email" name="email" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="nome@empresa.com.br">
                   </div>
                 </div>
 
                 <div>
                   <label for="telefone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Telefone / WhatsApp *</label>
-                  <input type="tel" id="telefone" name="telefone" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="(87) 98847-6707">
+                  <input type="tel" id="telefone" name="telefone" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="(87) 98847-6707">
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label for="origem" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Cidade / CEP Origem *</label>
-                    <input type="text" id="origem" name="origem" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Ex: Recife - PE">
+                    <input type="text" id="origem" name="origem" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Ex: Recife - PE">
                   </div>
                   <div>
                     <label for="destino" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Cidade / CEP Destino *</label>
-                    <input type="text" id="destino" name="destino" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Ex: Serra Talhada - PE">
+                    <input type="text" id="destino" name="destino" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Ex: Serra Talhada - PE">
                   </div>
                 </div>
 
                 <div>
                   <label for="carga" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Tipo / Peso da Carga *</label>
-                  <textarea id="carga" name="carga" rows="4" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue" placeholder="Ex: 5 caixas de eletrônicos, peso total ~120kg"></textarea>
+                  <textarea id="carga" name="carga" rows="4" required class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent transition-all" placeholder="Ex: 5 caixas de eletrônicos, peso total ~120kg"></textarea>
                 </div>
               </div>
 
-              <button type="submit" class="w-full bg-brand-blue hover:bg-brand-hover text-white font-black text-lg py-4 rounded-xl shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue mt-6">
+              <button type="submit" class="btn-shine w-full bg-brand-blue hover:bg-brand-hover text-white font-black text-lg py-4 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-blue mt-6">
                 Enviar Solicitação
               </button>
             </form>
           </div>
 
           <!-- Informações de Atendimento Direto + Endereço & Mapa -->
-          <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
+          <div class="lg:col-span-5 space-y-6 flex flex-col justify-between reveal-on-scroll stagger-2">
             <div>
               <h3 class="text-2xl font-bold text-brand-dark mb-2">Canais de Atendimento</h3>
               <p class="text-slate-600 text-sm text-justify">Preferencialmente atendimento rápido via telefone ou mensagem direta com a nossa equipe operacional.</p>
@@ -415,25 +580,25 @@
             <div class="space-y-4">
               
               <!-- Telefone / WhatsApp -->
-              <a href="https://wa.me/5587988476707?text=Olá!%20Gostaria%20de%20solicitar%20uma%20cotação%20de%20frete." target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-2xl bg-brand-surface border border-slate-200 hover:border-brand-blue transition-colors group">
-                <div class="w-12 h-12 bg-green-500 text-white rounded-xl flex items-center justify-center text-xl shrink-0">
+              <a href="https://wa.me/5587988476707?text=Olá!%20Gostaria%20de%20solicitar%20uma%20cotação%20de%20frete." target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-2xl bg-brand-surface border border-slate-200 hover:border-brand-blue hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 bg-green-500 text-white rounded-xl flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
                   <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p class="text-xs font-bold uppercase tracking-wider text-slate-500">WhatsApp Comercial</p>
-                  <p class="text-lg font-bold text-brand-dark group-hover:text-brand-blue">(87) 98847-6707</p>
+                  <p class="text-lg font-bold text-brand-dark group-hover:text-brand-blue transition-colors">(87) 98847-6707</p>
                   <p class="text-xs text-slate-500 text-justify">Clique para iniciar conversa</p>
                 </div>
               </a>
 
               <!-- E-mail -->
-              <a href="mailto:contato@limatransportes.com.br" class="flex items-center gap-4 p-4 rounded-2xl bg-brand-surface border border-slate-200 hover:border-brand-blue transition-colors group">
-                <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl shrink-0">
+              <a href="mailto:contato@limatransportes.com.br" class="flex items-center gap-4 p-4 rounded-2xl bg-brand-surface border border-slate-200 hover:border-brand-blue hover:-translate-y-1 transition-all group">
+                <div class="w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
                   <i class="fa-solid fa-envelope" aria-hidden="true"></i>
                 </div>
                 <div>
                   <p class="text-xs font-bold uppercase tracking-wider text-slate-500">E-mail de Cotações</p>
-                  <p class="text-base font-bold text-brand-dark group-hover:text-brand-blue">contato@limatransportes.com.br</p>
+                  <p class="text-base font-bold text-brand-dark group-hover:text-brand-blue transition-colors">contato@limatransportes.com.br</p>
                   <p class="text-xs text-slate-500 text-justify">Resposta em até 2h úteis</p>
                 </div>
               </a>
@@ -493,7 +658,7 @@
       
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         
-        <!-- Coluna 1: Marca com Logo sem fundo branco -->
+        <!-- Coluna 1: Marca com Logo -->
         <div class="space-y-4 md:col-span-1">
           <a href="#home" class="inline-block focus:outline-none focus:ring-2 focus:ring-brand-blue rounded-lg" aria-label="Voltar ao início">
             <img src="assets/img/logorodape.png" alt="Lima Transportes" class="h-12 w-auto object-contain">
